@@ -8,7 +8,7 @@ const mc = new wrap.Wrap(
   path.join(__dirname, 'server')
 );
 
-var { cleanup, banManager } = require('./modules');
+var { cleanup, banManager, mcParser, command } = require('./modules');
 
 cleanup(() => {
 
@@ -36,10 +36,26 @@ cleanup(() => {
         });
 
         mc.on('line', function(line) {
-          console.log(line);
+          mcParser(line, (results) => {
+
+            if(results.command) {
+
+              command(mc, results, (res) => {
+                if(res.error) {
+                  console.log(error);
+                }
+              });
+
+            }
+
+          });
         });
 
-        mc.writeServer('motd');
+        setInterval(function(){
+          mc.writeServer('say motd');
+          mc.writeServer('list');
+        }, 1000);
+
 
       },3000);
 
