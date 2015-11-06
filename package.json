@@ -1,0 +1,23 @@
+{
+  "name": "masonjar",
+  "version": "1.0.0",
+  "description": "Minecraft experiment",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wski/MasonJar.git"
+  },
+  "author": "wski <contact.mattdylan@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wski/MasonJar/issues"
+  },
+  "homepage": "https://github.com/wski/MasonJar",
+  "dependencies": {
+    "exec": "^0.2.1",
+    "minecraft-wrap": "^0.6.5"
+  }
+}
