@@ -1,15 +1,14 @@
 const wrap = require('minecraft-wrap');
 const path = require('path');
 
+var { SERVER_JAR } = require('./config');
+
 const mc = new wrap.Wrap(
-  path.join(__dirname, '/jars/minecraft_server.1.8.8.jar'),
+  path.join(__dirname, SERVER_JAR),
   path.join(__dirname, 'server')
 );
 
 var { cleanup, banManager } = require('./modules');
-
-const Ops = require('./server/ops.json') || [];
-const BannedPlayers = require('./server/banned-players.json') || [];
 
 cleanup(() => {
 
@@ -23,6 +22,9 @@ cleanup(() => {
       return;
     }else {
       console.log("🌎  Server Started!");
+
+      const Ops = require('./server/ops.json') || [];
+      const BannedPlayers = require('./server/banned-players.json') || [];
 
       setTimeout(function(){
 
