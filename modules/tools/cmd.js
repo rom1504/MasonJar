@@ -1,9 +1,23 @@
+var { SERVER_JAR, MAX_PLAYERS } = require('../../config');
+
 module.exports = {
   say: function(mc, msg) {
     mc.writeServer(`say ${msg}\n`);
   },
   whisper: function(mc, player, msg) {
     mc.writeServer(`tell ${player} ${msg}\n`);
+  },
+  restart: function(mc) {
+    mc.stopServer(() => {
+      mc.startServer({
+        motd: '8BitBlocks - MasonJar',
+        'max-players': MAX_PLAYERS
+      }, (error) => {
+        if(error) {
+          console.log(error);
+        }
+      });
+    });
   },
   ban: function(mc, player, voteCount) {
     mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);

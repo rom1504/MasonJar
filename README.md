@@ -24,6 +24,12 @@ and failure to dispatch commands is entirely possible.
 commands should be prefixed by $ and use JavaScript functional syntax. example:
 `$starter()`. Enjoy!
 
+### $vote4day
+After x percent (set in the config) of connected players vote for day, the time will be changed to day. (votes then reset)
+
+### vote_to_restart()
+Restart server when x percent (set in the config) of connected users votes. (votes then reset)
+
 ### $vote2ban("PlayerName")
 After x amount of players vote to ban someone they will be banned, you can see x
 by voting to ban somebody and awaiting the servers response message.
@@ -39,6 +45,3 @@ Give the player the starter pack (as determined in `modules/commands/starter_pac
 Takes you to this page.
 
 # Planned Features:
-
-### vote_to_restart()
-Restart server when x% of connected users votes.

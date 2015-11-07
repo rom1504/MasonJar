@@ -1,5 +1,5 @@
 var {
-  vote_to_ban, vote_to_unban, starter_pack, vote_for_day, help
+  vote_to_ban, vote_to_unban, starter_pack, vote_for_day, help, vote_for_restart
 } = require('./commands');
 
 var { cmd } = require('./tools');
@@ -9,6 +9,7 @@ var commands = {
   vote2ban: vote_to_ban,
   vote2unban: vote_to_unban,
   starter: starter_pack,
+  vote4restart: vote_for_restart,
   vote4day: vote_for_day
 };
 
