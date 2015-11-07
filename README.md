@@ -1,2 +1,28 @@
 # MasonJar
-Minecraft experiment 
+Minecraft experiment
+
+# Notice:
+This server is under active development. World resets, failed delivery of items,
+and failure to dispatch commands is entirely possible.
+
+# Commands Cheatsheet:
+
+## Usage:
+commands should be prefixed by $ and use JavaScript functional syntax. example:
+`$starter()`. Enjoy!
+
+### $vote2ban("PlayerName")
+After x amount of players vote to ban someone they will be banned, you can see x
+by voting to ban somebody and awaiting the servers response message.
+
+### $vote2unban("PlayerName")
+After x amount of players vote to unban someone they will be unbanned, you can see x
+by voting to unban somebody and awaiting the servers response message.
+
+### $starter()
+Give the player the starter pack (as determined in `modules/commands/starter_pack:items`) once.
+
+# Planned Features:
+
+### vote_to_restart()
+Restart server when x% of connected users votes.

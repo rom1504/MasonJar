@@ -1,7 +1,10 @@
-var { vote_to_ban } = require('./commands');
+var { vote_to_ban, vote_to_unban, starter_pack } = require('./commands');
+var { cmd } = require('./tools');
 
 var commands = {
-  vote2ban: vote_to_ban
+  vote2ban: vote_to_ban,
+  vote2unban: vote_to_unban,
+  starter: starter_pack
 };
 
 const command = function(mc, payload, callback) {
@@ -12,18 +15,23 @@ const command = function(mc, payload, callback) {
   if(commandName in commands) {
 
     try{
-      commands[commandName](
-        JSON.parse(
-          args
-        )
-      );
+
+      var args = (function(){
+        try{
+          return JSON.parse(args);
+        } catch(err) {
+          return "noArgs";
+        }
+      })();
+
+      commands[commandName](mc, payload, args);
 
       console.log(`${payload.player} dispatched command: ${payload.command}`);
-      mc.writeServer(`say ${payload.player} dispatched command: ${payload.command}\n`);
+      cmd.whisper(mc, payload.player, `You dispatched command: ${payload.command}`);
 
     } catch(err){
 
-      console.log(`${payload.player} failed to dispatch: ${payload.command}`);
+      console.log(`${payload.player} failed to dispatch: ${payload.command}`, err);
 
     }
 
