@@ -51,12 +51,6 @@ cleanup(() => {
           });
         });
 
-        setInterval(function(){
-          mc.writeServer('say motd');
-          mc.writeServer('list');
-        }, 1000);
-
-
       },3000);
 
     }

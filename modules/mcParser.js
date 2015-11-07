@@ -1,28 +1,38 @@
 const mcParser = function(line, callback) {
-  var head = line
-    .split(/:(?=[^\]]*(?:\[|$))/g)[0]
-      .split(/ (\[[a-zA-Z:0-9 \/]*\:?\]|[<>a-z])+/g);
 
-  var tail = line
-    .split(/:(?=[^\]]*(?:\[|$))/g)[1]
-      .split('>');
+  var recordArray = line.split(']:');
 
-  var command = (tail[1]) ? tail[1]
-    .substr(1,tail[1].length)
-      .split('$') : false;
+  var timeStamp = recordArray[0].split('] [')[0].replace('[','');
+  var messageLevel = recordArray[0].split('] [')[1].split('/')[1];
 
-  var payload = {
-    time: head[0].replace(/\[|\]/g,''),
-    type: (head[1]) ? head[1].split('/')[1].replace(/\[|\]/g,'') : false,
-    player: (tail[0].indexOf("<") > -1) ?
-      tail[0].replace(/\ |\</g,'') : false || false,
-    command: (command && command[0] === "" && command.length > 1) ?
-      command[1].split(' ')[0] : false,
-    message: (command && command[0] === "" && command.length > 1) ?
-      false : (tail[1]) ? tail[1].replace(/^\s+|\s+$/g,'') : false
+  var outObject = {
+    'time': timeStamp,
+    'type': messageLevel,
+    'player': false,
+    'command': false,
+    'message': false
   };
 
-  callback(payload);
+  if( (recordArray[1].indexOf('> $') > 0) && (recordArray[1].startsWith(' <')) ){
+
+    outArray = (recordArray[1].replace('<','').replace('> ','\t').replace(')',')\t')).split('\t')
+
+    outObject.player = outArray[0].trim();
+    outObject.command = outArray[1].trim();
+
+  } else {
+
+    if(recordArray[1].indexOf('<', 0) > 0) {
+      outObject.player = recordArray[1].split('>')[0].replace('<','').trim();
+      outObject.message = recordArray[1].split('>')[1].trim();
+    }else {
+      outObject.message = recordArray[1].trim();
+    }
+
+  }
+
+
+  callback(outObject);
 };
 
 module.exports = mcParser;
