@@ -1,6 +1,18 @@
 # MasonJar
 Minecraft experiment
 
+# Requirements & Setup
+MasonJar requires you to have Java installed along with NodeJS and MongoDB.
+
+Once installed run the following to get going.
+
+```$
+npm i
+sh start.sh
+```
+
+the server will be running at `localhost:25565`
+
 # Notice:
 This server is under active development. World resets, failed delivery of items,
 and failure to dispatch commands is entirely possible.
