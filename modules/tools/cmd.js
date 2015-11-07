@@ -8,6 +8,9 @@ module.exports = {
   ban: function(mc, player, voteCount) {
     mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);
   },
+  day: function(mc){
+    mc.writeServer(`time set 0\n`);
+  },
   unban: function(mc, player, voteCount) {
     mc.writeServer(`pardon ${player} vote2ban automated ban after ${voteCount} votes.\n`);
   },
