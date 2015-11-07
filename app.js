@@ -1,6 +1,9 @@
 const wrap = require('minecraft-wrap');
 const path = require('path');
 
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/masonjar');
+
 var { SERVER_JAR } = require('./config');
 
 const mc = new wrap.Wrap(
@@ -27,13 +30,6 @@ cleanup(() => {
       const BannedPlayers = require('./server/banned-players.json') || [];
 
       setTimeout(function(){
-
-        banManager(mc, BannedPlayers, () => {
-          // Bans players after x amount of votes (determined in config)
-          if(error) {
-            console.log(error);
-          }
-        });
 
         mc.on('line', function(line) {
           mcParser(line, (results) => {

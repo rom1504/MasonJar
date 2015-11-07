@@ -3,7 +3,13 @@ module.exports = {
     mc.writeServer(`say ${msg}\n`);
   },
   whisper: function(mc, player, msg) {
-    mc.writeServer(`whisper ${player} ${msg}\n`);
+    mc.writeServer(`tell ${player} ${msg}\n`);
+  },
+  ban: function(mc, player, voteCount) {
+    mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);
+  },
+  unban: function(mc, player, voteCount) {
+    mc.writeServer(`pardon ${player} vote2ban automated ban after ${voteCount} votes.\n`);
   },
   give: function(mc, items, player) {
     for(item in items) {

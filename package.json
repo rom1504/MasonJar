@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/wski/MasonJar",
   "dependencies": {
-    "minecraft-wrap": "^0.6.5"
+    "minecraft-wrap": "^0.6.5",
+    "mongoose": "^4.2.4"
   }
 }
