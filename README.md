@@ -24,10 +24,10 @@ and failure to dispatch commands is entirely possible.
 commands should be prefixed by $ and use JavaScript functional syntax. example:
 `$starter()`. Enjoy!
 
-### $vote4day
+### $vote4day()
 After x percent (set in the config) of connected players vote for day, the time will be changed to day. (votes then reset)
 
-### vote_to_restart()
+### $vote4restart()
 Restart server when x percent (set in the config) of connected users votes. (votes then reset)
 
 ### $vote2ban("PlayerName")

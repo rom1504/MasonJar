@@ -1,6 +1,9 @@
 var { SERVER_JAR, MAX_PLAYERS } = require('../../config');
 
 module.exports = {
+  logger: function() {
+
+  },
   say: function(mc, msg) {
     mc.writeServer(`say ${msg}\n`);
   },
@@ -24,6 +27,7 @@ module.exports = {
   },
   day: function(mc){
     mc.writeServer(`time set 0\n`);
+    mc.writeServer(`weather set clear\n`);
   },
   unban: function(mc, player, voteCount) {
     mc.writeServer(`pardon ${player} vote2ban automated ban after ${voteCount} votes.\n`);
