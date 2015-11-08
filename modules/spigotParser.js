@@ -9,7 +9,7 @@ const spigotParser = function(line, callback) {
     if(line.indexOf('INFO]: <') > -1){
       var p = line.split('INFO]: <')[1].split('>')[0];
       if(p.indexOf(' ') > -1) {
-        p = p.split(' ')[0];
+        p = p.split(' ')[1];
       }
       return p;
     }else {
