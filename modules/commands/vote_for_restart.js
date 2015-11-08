@@ -32,6 +32,12 @@ const vote_for_day = function(mc, payload, args, options) {
         if(vote.votes.indexOf(payload.player) > -1) {
           vote.votes.push(payload.player);
           cmd.whisper(mc, payload.player, `You voted for a restart. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_RESTART} or above needed.`);
+          if(vote.votes.length / options.CONNECTED_PLAYERS >= VOTES_FOR_RESTART) {
+
+            cmd.restart(mc);
+            vote.executed = true;
+
+          }
         }else {
           cmd.whisper(mc, payload.player, `You've already voted for a restart.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_RESTART} or above needed.`);
         }
