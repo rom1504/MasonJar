@@ -7,7 +7,11 @@ const spigotParser = function(line, callback) {
 
   var player = (function(){
     if(line.indexOf('INFO]: <') > -1){
-      return line.split('INFO]: <')[1].split('>')[0];
+      var p = line.split('INFO]: <')[1].split('>')[0];
+      if(p.indexOf(' ') > -1) {
+        p = p.split(' ')[0];
+      }
+      return p;
     }else {
       return false;
     }
