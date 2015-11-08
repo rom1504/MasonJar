@@ -6,5 +6,6 @@ module.exports = {
   MAX_PLAYERS: 100,
   UPDATE_TIMER: 60000,
   LOGFILE: '../../MasonJar.log',
-  SERVER_JAR: '/jars/spigot_server.jar'
+  SERVER_JAR: '/jars/spigot_server.jar',
+  DEFAULT_OP: 'That_8Bit_Trip'
 };

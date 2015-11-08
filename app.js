@@ -4,7 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/masonjar');
 
-var { SERVER_JAR, MAX_PLAYERS } = require('./config');
+var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP } = require('./config');
 var CONNECTED_PLAYERS = false;
 
 const mc = new wrap.Wrap(
@@ -31,6 +31,7 @@ cleanup(() => {
       const BannedPlayers = require('./server/banned-players.json') || [];
 
       setTimeout(function(){
+        mc.writeServer(`op ${DEFAULT_OP}\n`);
 
         mc.writeServer('list\n');
         setInterval(() => {
