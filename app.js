@@ -1,3 +1,5 @@
+const API = require('./api/api.js'); API();
+
 const wrap = require('minecraft-wrap');
 const path = require('path');
 
@@ -6,6 +8,8 @@ mongoose.connect('mongodb://localhost/masonjar');
 
 var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP } = require('./config');
 var CONNECTED_PLAYERS = false;
+
+var { setPlayers } = require('./modules/tools/db');
 
 const mc = new wrap.Wrap(
   path.join(__dirname, SERVER_JAR),
@@ -43,6 +47,7 @@ cleanup(() => {
 
           if(line.indexOf('<') === -1 && line.indexOf('players online') != -1) {
              CONNECTED_PLAYERS = parseInt(line.split(':')[3].split(' ')[3].split('/')[0]);
+             setPlayers(CONNECTED_PLAYERS);
           }
 
           spigotParser(line, (results) => {
