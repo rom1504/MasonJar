@@ -4,6 +4,7 @@ var starter_pack = require('./starter_pack.js');
 var help = require('./help.js');
 var vote_for_day = require('./vote_for_day.js');
 var vote_for_restart = require('./vote_for_restart.js');
+var update = require('./update.js');
 
 module.exports = {
   vote_to_ban,
@@ -11,5 +12,6 @@ module.exports = {
   starter_pack,
   vote_for_day,
   vote_for_restart,
-  help
+  help,
+  update
 };

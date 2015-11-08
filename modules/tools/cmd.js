@@ -1,14 +1,54 @@
-var { SERVER_JAR, MAX_PLAYERS } = require('../../config');
+const { SERVER_JAR, MAX_PLAYERS, LOGFILE } = require('../../config');
+
+const mongoose = require('mongoose');
+var Schema = mongoose.Schema;
+
+const exec = require('child_process').exec;
+
+var LogMsg = new Schema({
+  timestamp: { type: Date, default: Date.now() },
+  msg: String
+});
+
+mongoose.model('LogMsg', LogMsg);
+var LogMsg = mongoose.model('LogMsg');
 
 module.exports = {
-  logger: function() {
-
+  logger: function(msg) {
+    var msg = new LogMsg({
+      timestamp: Date.now(),
+      msg: msg
+    });
+    msg.save(function(err){
+      if(err) {
+        console.log(err);
+      }
+    });
   },
   say: function(mc, msg) {
     mc.writeServer(`say ${msg}\n`);
   },
   whisper: function(mc, player, msg) {
     mc.writeServer(`tell ${player} ${msg}\n`);
+  },
+  update: function(mc, payload) {
+    mc.stopServer(() => {
+
+      exec('../../update.sh', (err, stdout, stderr) => {
+        if(err) {
+          console.log(err);
+        }
+        console.log(stdout);
+      });
+      mc.startServer({
+        motd: '8BitBlocks - MasonJar',
+        'max-players': MAX_PLAYERS
+      }, (error) => {
+        if(error) {
+          console.log(error);
+        }
+      });
+    });
   },
   restart: function(mc) {
     mc.stopServer(() => {
@@ -24,13 +64,15 @@ module.exports = {
   },
   ban: function(mc, player, voteCount) {
     mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);
+    this.logger(`banned ${player} with vote2ban automated ban after ${voteCount} votes.`);
   },
   day: function(mc){
     mc.writeServer(`time set 0\n`);
     mc.writeServer(`weather set clear\n`);
   },
   unban: function(mc, player, voteCount) {
-    mc.writeServer(`pardon ${player} vote2ban automated ban after ${voteCount} votes.\n`);
+    mc.writeServer(`pardon ${player} vote2ban automated unban after ${voteCount} votes.\n`);
+    this.logger(`pardoned ${player} with vote2ban automated unban after ${voteCount} votes.`);
   },
   give: function(mc, items, player) {
     for(item in items) {
@@ -44,5 +86,7 @@ module.exports = {
         mc.writeServer(`give ${player} ${items[item]} 1\n`);
       }
     }
+    this.logger(`gave ${player} ${JSON.stringify(items)}`);
+
   }
 };

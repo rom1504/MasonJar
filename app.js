@@ -12,7 +12,7 @@ const mc = new wrap.Wrap(
   path.join(__dirname, 'server')
 );
 
-var { cleanup, banManager, mcParser, command } = require('./modules');
+var { cleanup, banManager, spigotParser, command } = require('./modules');
 
 cleanup(() => {
 
@@ -38,12 +38,13 @@ cleanup(() => {
         }, 5000);
 
         mc.on('line', function(line) {
+          console.log(line);
 
           if(line.indexOf('<') === -1 && line.indexOf('players online') != -1) {
              CONNECTED_PLAYERS = parseInt(line.split(':')[3].split(' ')[3].split('/')[0]);
           }
 
-          mcParser(line, (results) => {
+          spigotParser(line, (results) => {
 
             if(results.command) {
 

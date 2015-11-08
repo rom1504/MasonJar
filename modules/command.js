@@ -1,36 +1,28 @@
 var {
-  vote_to_ban, vote_to_unban, starter_pack, vote_for_day, help, vote_for_restart
+  vote_to_ban, vote_to_unban, starter_pack, vote_for_day, help, vote_for_restart,
+  update
 } = require('./commands');
 
 var { cmd } = require('./tools');
 
 var commands = {
-  help: help,
+  help,
   vote2ban: vote_to_ban,
   vote2unban: vote_to_unban,
   starter: starter_pack,
   vote4restart: vote_for_restart,
-  vote4day: vote_for_day
+  vote4day: vote_for_day,
+  update
 };
 
 const command = function(mc, payload, callback, options) {
 
-  var commandName = payload.command.split('(')[0].replace('$', '');
-  var args;
-  args = (payload.command.indexOf('(') > -1) ? payload.command.split('(')[1].replace(')', '') : 'noargs';
-  args = JSON.stringify(args.replace("'", "").replace('"', ''));
+  var commandName = payload.command.command;
+  var args = payload.command.args;
 
   if(commandName in commands) {
 
     try{
-
-      var args = (function(){
-        try{
-          return JSON.parse(args);
-        } catch(err) {
-          return "noArgs";
-        }
-      })();
 
       commands[commandName](mc, payload, args, {
         CONNECTED_PLAYERS: options.CONNECTED_PLAYERS

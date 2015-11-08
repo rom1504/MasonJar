@@ -4,5 +4,7 @@ module.exports = {
   VOTES_FOR_DAY: 0.5,
   VOTES_FOR_RESTART: 0.75,
   MAX_PLAYERS: 100,
-  SERVER_JAR: '/jars/minecraft_server.1.8.8.jar'
+  UPDATE_TIMER: 60000,
+  LOGFILE: '../../MasonJar.log',
+  SERVER_JAR: '/jars/spigot_server.jar'
 };

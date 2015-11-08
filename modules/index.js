@@ -1,9 +1,11 @@
 var cleanup = require('./cleanup.js');
-var mcParser = require('./mcParser.js');
+var vanillaParser = require('./vanillaParser.js');
+var spigotParser = require('./spigotParser.js');
 var command = require('./command.js');
 
 module.exports = {
   cleanup,
-  mcParser,
+  vanillaParser,
+  spigotParser,
   command
 };

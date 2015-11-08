@@ -45,3 +45,7 @@ Give the player the starter pack (as determined in `modules/commands/starter_pac
 Takes you to this page.
 
 # Planned Features:
+
+### $point("PlayerName")
+When someone helps you out, give them a point, one point can be given per day,
+you cannot give yourself points. Points may be use to purchase packs in game.
