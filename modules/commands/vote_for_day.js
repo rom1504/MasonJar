@@ -30,6 +30,8 @@ const vote_for_day = function(mc, payload, args, options) {
       }else {
 
         if(vote.votes.indexOf(payload.player) > -1) {
+          cmd.whisper(mc, payload.player, `You've already voted for day.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`);
+        }else {
           vote.votes.push(payload.player);
           cmd.whisper(mc, payload.player, `You voted for day. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`);
 
@@ -39,8 +41,6 @@ const vote_for_day = function(mc, payload, args, options) {
             vote.executed = true;
 
           }
-        }else {
-          cmd.whisper(mc, payload.player, `You've already voted for day.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`);
         }
 
       }

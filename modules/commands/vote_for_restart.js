@@ -30,6 +30,8 @@ const vote_for_day = function(mc, payload, args, options) {
       }else {
 
         if(vote.votes.indexOf(payload.player) > -1) {
+          cmd.whisper(mc, payload.player, `You've already voted for a restart.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_RESTART} or above needed.`);
+        }else {
           vote.votes.push(payload.player);
           cmd.whisper(mc, payload.player, `You voted for a restart. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_RESTART} or above needed.`);
           if(vote.votes.length / options.CONNECTED_PLAYERS >= VOTES_FOR_RESTART) {
@@ -38,8 +40,6 @@ const vote_for_day = function(mc, payload, args, options) {
             vote.executed = true;
 
           }
-        }else {
-          cmd.whisper(mc, payload.player, `You've already voted for a restart.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_RESTART} or above needed.`);
         }
 
       }
