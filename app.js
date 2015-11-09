@@ -6,7 +6,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/masonjar');
 
-var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP } = require('./config');
+var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS } = require('./config');
 var CONNECTED_PLAYERS = false;
 
 var { setPlayers } = require('./modules/tools/db');
@@ -51,8 +51,32 @@ cleanup(() => {
           console.log(line);
 
           if(line.indexOf('<') === -1 && line.indexOf('players online') != -1) {
-             CONNECTED_PLAYERS = parseInt(line.split(':')[3].split(' ')[3].split('/')[0]);
-             setPlayers(CONNECTED_PLAYERS);
+            CONNECTED_PLAYERS = {
+              count: parseInt(line.split(':')[3].split(' ')[3].split('/')[0]),
+              names: []
+            };
+          }
+
+          if( USING_ESSENTIALS ) {
+            if( line.match(/\[.* INFO]: default:/) ){
+              var players = line.replace(/\[.* INFO]: default:/, '').replace(' ', '').split(',');
+              for (player in players) {
+                if(players[player].match(/\[.*].*/)) {
+                  players[player] = {
+                    name: players[player].split(']')[1],
+                    afk: true
+                  };
+                }else{
+                  players[player] = {
+                    name: players[player],
+                    afk: false
+                  };
+                }
+              }
+              CONNECTED_PLAYERS.names = players;
+              CONNECTED_PLAYERS.count = players.length;
+              setPlayers(CONNECTED_PLAYERS);
+            }
           }
 
           spigotParser(line, (results) => {

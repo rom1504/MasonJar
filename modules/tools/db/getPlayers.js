@@ -10,11 +10,13 @@ const setPlayers = function(callback) {
     if(players) {
       callback({
         count: players.count,
+        players: players.names,
         updatedAt: players.updatedAt
       });
     }else {
       callback({
         count: 0,
+        players: [],
         updatedAt: 'Never'
       });
     }
