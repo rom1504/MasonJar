@@ -13,7 +13,12 @@ var { setPlayers } = require('./modules/tools/db');
 
 const mc = new wrap.Wrap(
   path.join(__dirname, SERVER_JAR),
-  path.join(__dirname, 'server')
+  path.join(__dirname, 'server'),
+  {
+    minMem: '1024',
+    maxMem: '1024',
+    doneRegex: new RegExp(/ INFO\]: Done /)
+  }
 );
 
 var { cleanup, banManager, spigotParser, command } = require('./modules');

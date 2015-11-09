@@ -18,7 +18,7 @@
   "homepage": "https://github.com/wski/MasonJar",
   "dependencies": {
     "express": "^4.13.3",
-    "minecraft-wrap": "git://github.com/wski/spigot-minecraft-wrap.git",
+    "minecraft-wrap": "git://github.com/wski/node-minecraft-wrap.git#master",
     "mongoose": "^4.2.4"
   }
 }
