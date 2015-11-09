@@ -5,6 +5,7 @@ module.exports = {
   VOTES_FOR_RESTART: 0.75,
   MAX_PLAYERS: 100,
   UPDATE_TIMER: 60000,
+  USING_ESSENTIALS: true,
   LOGFILE: '../../MasonJar.log',
   SERVER_JAR: '/jars/spigot_server.jar',
   DEFAULT_OP: 'That_8Bit_Trip'

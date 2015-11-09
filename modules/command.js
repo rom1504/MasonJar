@@ -28,7 +28,7 @@ const command = function(mc, payload, callback, options) {
         CONNECTED_PLAYERS: options.CONNECTED_PLAYERS
       });
 
-      console.log(`${payload.player} dispatched command: ${payload.command}`);
+      console.log(`${payload.player} dispatched command: ${payload.command.command}`);
 
     } catch(err){
       cmd.whisper(
@@ -36,7 +36,7 @@ const command = function(mc, payload, callback, options) {
         payload.player,
         `Invalid command syntax.`
       );
-      console.log(`${payload.player} failed to dispatch: ${payload.command}`, err);
+      console.log(`${payload.player} failed to dispatch: ${payload.command.command}`, err);
 
     }
 

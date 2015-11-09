@@ -18,17 +18,17 @@ const spigotParser = function(line, callback) {
   })();
 
   var command = (function(){
-    var re = new RegExp(/\> \$.*\(.*\)/g);
+    var re = new RegExp(/\> \#.*\(.*\)/g);
 
     if(re.test(line)) {
 
       var dispatchedCommand = line
-        .match(/\> \$.*\(.*\)/g)[0]
-        .substr(2, line.match(/\> \$.*\(.*\)/g)[0].length);
+        .match(/\> \#.*\(.*\)/g)[0]
+        .substr(2, line.match(/\> \#.*\(.*\)/g)[0].length);
 
       var command = dispatchedCommand
         .split('(')[0]
-        .replace('$', '');
+        .replace('#', '');
 
       var args = dispatchedCommand
         .split('(')[1]
@@ -52,6 +52,7 @@ const spigotParser = function(line, callback) {
     }
   })();
 
+  console.log(command);
   var payload = {
     time: Date.now(),
     type: lineType,

@@ -1,4 +1,4 @@
-const { SERVER_JAR, MAX_PLAYERS, LOGFILE } = require('../../config');
+const { SERVER_JAR, MAX_PLAYERS, LOGFILE, USING_ESSENTIALS } = require('../../config');
 
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -29,7 +29,11 @@ module.exports = {
     mc.writeServer(`say ${msg}\n`);
   },
   whisper: function(mc, player, msg) {
-    mc.writeServer(`tell ${player} ${msg}\n`);
+    if(USING_ESSENTIALS){
+      mc.writeServer(`whisper ${player} ${msg}\n`);
+    }else {
+      mc.writeServer(`tell ${player} ${msg}\n`);
+    }
   },
   update: function(mc, payload) {
     mc.stopServer(() => {
