@@ -22,14 +22,12 @@ const vote_to_ban = function(mc, payload, args) {
     if (vote) {
       if ( vote.banned ) {
         cmd.whisper(
-          mc,
           payload.player,
           `${args} is already banned.`
         );
       } else {
         if(vote.votes.indexOf(payload.player) > -1) {
           cmd.whisper(
-            mc,
             payload.player,
             `You've already voted to ban: ${args}, ${VOTES_TO_BAN - vote.votes.length} vote(s) needed.`
           );
@@ -40,8 +38,8 @@ const vote_to_ban = function(mc, payload, args) {
           }
           vote.save(function(){
             if(vote.votes.length >= VOTES_TO_BAN) {
-              cmd.ban(mc, args, VOTES_TO_BAN);
-              cmd.say(mc, `${args} banned automatically after ${VOTES_TO_BAN} votes!`);
+              cmd.ban(args, VOTES_TO_BAN);
+              cmd.say(`${args} banned automatically after ${VOTES_TO_BAN} votes!`);
             }
           });
         }

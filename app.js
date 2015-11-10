@@ -25,6 +25,9 @@ const mc = new wrap.Wrap(
 
 var { cleanup, banManager, spigotParser, command } = require('./modules');
 
+var cmd = require('./modules/tools/cmd.js');
+cmd.init(mc);
+
 cleanup(() => {
 
   mc.startServer({

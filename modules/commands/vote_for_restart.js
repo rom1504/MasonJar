@@ -23,21 +23,21 @@ const vote_for_day = function(mc, payload, args, options) {
     if(vote) {
 
       if(vote.votes.length / options.CONNECTED_PLAYERS.count >= VOTES_FOR_RESTART) {
-        cmd.whisper(mc, payload.player, `You voted for a restart successfully.`);
+        cmd.whisper(payload.player, `You voted for a restart successfully.`);
 
-        cmd.restart(mc);
+        cmd.restart();
         vote.executed = true;
 
       }else {
 
         if(vote.votes.indexOf(payload.player) > -1) {
-          cmd.whisper(mc, payload.player, `You've already voted for a restart.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_RESTART} or above needed.`);
+          cmd.whisper(payload.player, `You've already voted for a restart.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_RESTART} or above needed.`);
         }else {
           vote.votes.push(payload.player);
-          cmd.whisper(mc, payload.player, `You voted for a restart. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_RESTART} or above needed.`);
+          cmd.whisper(payload.player, `You voted for a restart. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_RESTART} or above needed.`);
           if(vote.votes.length / options.CONNECTED_PLAYERS.count >= VOTES_FOR_RESTART) {
 
-            cmd.restart(mc);
+            cmd.restart();
             vote.executed = true;
 
           }

@@ -40,8 +40,8 @@ const vote_to_unban = function(mc, payload, args) {
           }
           vote.save(function(){
             if(vote.votes.length >= VOTES_TO_UNBAN) {
-              cmd.unban(mc, args, VOTES_TO_UNBAN);
-              cmd.say(mc, `${args} unbanned automatically after ${VOTES_TO_UNBAN} votes!`);
+              cmd.unban(args, VOTES_TO_UNBAN);
+              cmd.say(`${args} unbanned automatically after ${VOTES_TO_UNBAN} votes!`);
             }
           });
         }

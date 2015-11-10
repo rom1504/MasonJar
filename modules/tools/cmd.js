@@ -15,7 +15,12 @@ var LogMsg = new Schema({
 mongoose.model('LogMsg', LogMsg);
 var LogMsg = mongoose.model('LogMsg');
 
+var mc;
+
 module.exports = {
+  init: function(Minecraft) {
+    mc = Minecraft;
+  },
   logger: function(msg) {
     var msg = new LogMsg({
       timestamp: Date.now(),
@@ -27,17 +32,17 @@ module.exports = {
       }
     });
   },
-  say: function(mc, msg) {
+  say: function(msg) {
     mc.writeServer(`say ${msg}\n`);
   },
-  whisper: function(mc, player, msg) {
+  whisper: function(player, msg) {
     if(USING_ESSENTIALS){
       mc.writeServer(`whisper ${player} ${msg}\n`);
     }else {
       mc.writeServer(`tell ${player} ${msg}\n`);
     }
   },
-  update: function(mc, payload) {
+  update: function(payload) {
     mc.stopServer(() => {
 
       exec('../../update.sh', (err, stdout, stderr) => {
@@ -56,7 +61,7 @@ module.exports = {
       });
     });
   },
-  restart: function(mc) {
+  restart: function() {
     var timer = UPDATE_TIMER;
     this.say(mc, `Server restarting in ${timer / 1000 / 60} minute(s)!`);
     var restartTimer = setInterval(function(){
@@ -79,19 +84,19 @@ module.exports = {
     }, UPDATE_TIMER);
 
   },
-  ban: function(mc, player, voteCount) {
+  ban: function(player, voteCount) {
     mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);
     this.logger(`banned ${player} with vote2ban automated ban after ${voteCount} votes.`);
   },
-  day: function(mc){
+  day: function(){
     mc.writeServer(`time set 0\n`);
     mc.writeServer(`weather set clear\n`);
   },
-  unban: function(mc, player, voteCount) {
+  unban: function(player, voteCount) {
     mc.writeServer(`pardon ${player} vote2ban automated unban after ${voteCount} votes.\n`);
     this.logger(`pardoned ${player} with vote2ban automated unban after ${voteCount} votes.`);
   },
-  give: function(mc, items, player) {
+  give: function(items, player) {
     for(item in items) {
       if(typeof(items[item]) === 'object'){
         try {
