@@ -34,6 +34,8 @@ module.exports = function(mc, line, callback) {
       CONNECTED_PLAYERS.names = players;
       CONNECTED_PLAYERS.count = players.length;
       setPlayers(CONNECTED_PLAYERS);
+    }else{
+      setPlayers(CONNECTED_PLAYERS);
     }
   }
   callback(CONNECTED_PLAYERS);
