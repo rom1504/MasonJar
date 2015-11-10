@@ -6,7 +6,9 @@ const path = require('path');
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/masonjar');
 
-var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS } = require('./config');
+var {
+  SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS, CACHE_TIMER
+} = require('./config');
 var CONNECTED_PLAYERS = {count: 0};
 
 var { mainLoop, lineParser } = require('./modules/dispatchers');
@@ -45,7 +47,7 @@ cleanup(() => {
         mainLoop(mc);
         setInterval(function() {
           mainLoop(mc)
-        }, 5000);
+        }, CACHE_TIMER);
 
         mc.on('line', function(line) {
           lineParser(mc, line, (players) => {
