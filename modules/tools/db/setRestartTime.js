@@ -37,6 +37,7 @@ const setRestartTime = function(timeTillRestart) {
 
     if(restart) {
       restart.timeTillRestart = timeTillRestart;
+      restart.formattedRestartCoutdown = getDuration(timeTillRestart).toString();
       restart.save(function(){});
     }else {
       var restart = new RestartTimer({
