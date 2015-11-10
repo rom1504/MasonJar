@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/masonjar');
 
 var { SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS } = require('./config');
-var CONNECTED_PLAYERS = false;
+var CONNECTED_PLAYERS = {count: 0};
 
-var { setPlayers } = require('./modules/tools/db');
+var { mainLoop, lineParser } = require('./modules/dispatchers');
 
 const mc = new wrap.Wrap(
   path.join(__dirname, SERVER_JAR),
@@ -42,42 +42,15 @@ cleanup(() => {
       setTimeout(function(){
         mc.writeServer(`op ${DEFAULT_OP}\n`);
 
-        mc.writeServer('list\n');
-        setInterval(() => {
-          mc.writeServer('list\n');
+        mainLoop(mc);
+        setInterval(function() {
+          mainLoop(mc)
         }, 5000);
 
         mc.on('line', function(line) {
-          console.log(line);
-
-          if(line.indexOf('<') === -1 && line.indexOf('players online') != -1) {
-            CONNECTED_PLAYERS = {
-              count: parseInt(line.split(':')[3].split(' ')[3].split('/')[0]),
-              names: []
-            };
-          }
-
-          if( USING_ESSENTIALS ) {
-            if( line.match(/\[.* INFO]: default:/) ){
-              var players = line.replace(/\[.* INFO]: default:/, '').replace(' ', '').split(',');
-              for (player in players) {
-                if(players[player].match(/\[.*].*/)) {
-                  players[player] = {
-                    name: players[player].split(']')[1],
-                    afk: true
-                  };
-                }else{
-                  players[player] = {
-                    name: players[player],
-                    afk: false
-                  };
-                }
-              }
-              CONNECTED_PLAYERS.names = players;
-              CONNECTED_PLAYERS.count = players.length;
-              setPlayers(CONNECTED_PLAYERS);
-            }
-          }
+          lineParser(mc, line, (players) => {
+            CONNECTED_PLAYERS = players;
+          });
 
           spigotParser(line, (results) => {
 

@@ -1,9 +1,12 @@
-var { getPlayers } = require('../../modules/tools/db');
+var { getPlayers, getUptime } = require('../../modules/tools/db');
 
 const basic = function(req, res) {
-  getPlayers(function(players) {
-    res.json({
-      players
+  getUptime(function(uptime) {
+    getPlayers(function(players) {
+      res.json({
+        players,
+        uptime
+      });
     });
   });
 };

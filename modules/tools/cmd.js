@@ -1,4 +1,6 @@
-const { SERVER_JAR, MAX_PLAYERS, LOGFILE, USING_ESSENTIALS } = require('../../config');
+const {
+  SERVER_JAR, MAX_PLAYERS, LOGFILE, USING_ESSENTIALS, UPDATE_TIMER
+} = require('../../config');
 
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
@@ -55,16 +57,27 @@ module.exports = {
     });
   },
   restart: function(mc) {
-    mc.stopServer(() => {
-      mc.startServer({
-        motd: '8BitBlocks - MasonJar',
-        'max-players': MAX_PLAYERS
-      }, (error) => {
-        if(error) {
-          console.log(error);
-        }
+    var timer = UPDATE_TIMER;
+    this.say(mc, `Server restarting in ${timer / 1000 / 60} minute(s)!`);
+    var restartTimer = setInterval(function(){
+      timer = timer - 60000;
+      this.say(mc, `Server restarting in ${timer / 1000 / 60} minute(s)!`);
+    }, 60000);
+
+    setTimeout(function(){
+      clearInterval(restartTimer);
+      mc.stopServer(() => {
+        mc.startServer({
+          motd: '8BitBlocks - MasonJar',
+          'max-players': MAX_PLAYERS
+        }, (error) => {
+          if(error) {
+            console.log(error);
+          }
+        });
       });
-    });
+    }, UPDATE_TIMER);
+
   },
   ban: function(mc, player, voteCount) {
     mc.writeServer(`ban ${player} vote2ban automated ban after ${voteCount} votes.\n`);

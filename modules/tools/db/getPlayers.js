@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 
 var PlayerCount = mongoose.model('PlayerCount');
 
-const setPlayers = function(callback) {
+const getPlayers = function(callback) {
   var query = PlayerCount.find().sort({'updatedAt': 'desc'});
   query.findOne(function (err, players) {
     if (err) return handleError(err);
@@ -23,4 +23,4 @@ const setPlayers = function(callback) {
   });
 };
 
-module.exports = setPlayers;
+module.exports = getPlayers;
