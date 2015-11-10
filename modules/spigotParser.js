@@ -52,7 +52,6 @@ const spigotParser = function(line, callback) {
     }
   })();
 
-  console.log(command);
   var payload = {
     time: Date.now(),
     type: lineType,

@@ -17,52 +17,48 @@ const vote_for_day = function(mc, payload, args, options) {
   args = args.toLowerCase();
 
   var query = DayVote.where({ executed: false }).sort({'timestamp': 'desc'});
-  query.findOne(function (err, vote) {
+  query.findOne(function (err, day_vote) {
     if (err) return handleError(err);
 
-    if(vote) {
+    if(day_vote) {
 
-      if(vote.votes.length / options.CONNECTED_PLAYERS >= VOTES_FOR_DAY) {
+      if(day_vote.votes.length / options.CONNECTED_PLAYERS.count >= VOTES_FOR_DAY) {
+        cmd.whisper(mc, payload.player, `You voted for day successfully.`);
 
         cmd.day(mc);
-        vote.executed = true;
+        day_vote.executed = true;
 
       }else {
 
-        if(vote.votes.indexOf(payload.player) > -1) {
-          cmd.whisper(mc, payload.player, `You've already voted for day.  Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`);
+        if(day_vote.votes.indexOf(payload.player) > -1) {
+          cmd.whisper(mc, payload.player, `You've already voted for day.  Percent is at ${day_vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_DAY} or above needed.`);
         }else {
-          vote.votes.push(payload.player);
+          day_vote.votes.push(payload.player);
 
-          cmd.whisper(mc, payload.player, `You voted for day. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`);
+          cmd.whisper(mc, payload.player, `You voted for day. Percent is at ${day_vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_DAY} or above needed.`);
 
-          if(vote.votes.length / options.CONNECTED_PLAYERS >= VOTES_FOR_DAY) {
+          if(day_vote.votes.length / options.CONNECTED_PLAYERS.count >= VOTES_FOR_DAY) {
 
             cmd.day(mc);
-            vote.executed = true;
+            day_vote.executed = true;
 
           }
-        }
-        
-        if(typeof(vote.votes) !== 'number' ) {
-          cmd.day(mc);
-          vote.executed = true;
         }
 
       }
 
-      vote.save(function(){});
+      day_vote.save(function(){});
     }else {
-      var vote = new DayVote({
+      var day_vote = new DayVote({
         timestamp: Date.now(),
         votes: [payload.player],
         executed: false
       });
-      vote.save(function(err){
+      day_vote.save(function(err){
         cmd.whisper(
           mc,
           payload.player,
-          `You voted for day. Percent is at ${vote.votes.length / options.CONNECTED_PLAYERS}, ${VOTES_FOR_DAY} or above needed.`
+          `You voted for day. Percent is at ${day_vote.votes.length / options.CONNECTED_PLAYERS.count}, ${VOTES_FOR_DAY} or above needed.`
         );
       });
     }
