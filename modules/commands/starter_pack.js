@@ -1,8 +1,8 @@
 var { cmd } = require('../tools');
+var { starter } = require('../packs');
 
 const starter_pack = function(mc, payload) {
-  var items = ['stone', {name: 'stone', count: 64}];
-  cmd.give(items, payload.player);
+  cmd.give(starter, payload.player);
 };
 
 module.exports = starter_pack;
