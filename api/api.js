@@ -4,7 +4,7 @@ const cors = require('cors');
 var app = express();
 app.use(cors());
 
-var { basic, player } = require('./modules');
+var { basic, player, players } = require('./modules');
 
 var API = function() {
   app.get('/', function (req, res) {
@@ -17,7 +17,12 @@ var API = function() {
         {
           name: 'player/:playername',
           desc: 'Get public data on a listed player (case sensitive).'
-        }
+        },
+        {
+          name: 'players/:limit',
+          desc: 'Get all players sorted by time online.'
+        },
+        
       ]
     });
   });
@@ -28,6 +33,10 @@ var API = function() {
   
   app.get('/player/:player', function(req, res){
     player(req, res);
+  });
+  
+   app.get('/players/:limit', function(req, res){
+    players(req, res);
   });
   
   var server = app.listen(3000, function () {
