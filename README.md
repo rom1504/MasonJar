@@ -22,7 +22,7 @@ and failure to dispatch commands is entirely possible.
 
 ## Usage:
 commands should be prefixed by # and use JavaScript functional syntax. example:
-`$starter()`. Enjoy!
+`#starter()`. Enjoy!
 
 # Planned Features:
 
