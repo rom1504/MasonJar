@@ -8,6 +8,7 @@ module.exports = {
   USING_ESSENTIALS: true,
   RESTART_TIMER: 86400000,
   CACHE_TIMER: 1000,
+  ONLINE_POINT_MINS: 1,
   LOGFILE: '../../MasonJar.log',
   SERVER_JAR: '/jars/spigot_server.jar',
   DEFAULT_OP: 'That_8Bit_Trip'

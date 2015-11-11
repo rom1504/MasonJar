@@ -2,7 +2,7 @@ var {
   SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS
 } = require('../../config');
 
-var { setPlayers } = require('../tools/db');
+var { setPlayers, playerDB } = require('../tools/db');
 var CONNECTED_PLAYERS = {};
 
 module.exports = function(mc, line, callback) {
@@ -19,6 +19,7 @@ module.exports = function(mc, line, callback) {
     if( line.match(/\[.* INFO]: default:/) ){
       var players = line.replace(/\[.* INFO]: default:/, '').replace(' ', '').split(',');
       for (player in players) {
+        var now = Date.now();
         if(players[player].match(/\[.*].*/)) {
           players[player] = {
             name: players[player].split(']')[1],
@@ -34,8 +35,10 @@ module.exports = function(mc, line, callback) {
       CONNECTED_PLAYERS.names = players;
       CONNECTED_PLAYERS.count = players.length;
       setPlayers(CONNECTED_PLAYERS);
+      playerDB('online', CONNECTED_PLAYERS);
     }else{
       setPlayers(CONNECTED_PLAYERS);
+      playerDB('online', CONNECTED_PLAYERS);
     }
   }
   callback(CONNECTED_PLAYERS);

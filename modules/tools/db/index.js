@@ -4,6 +4,8 @@ var setUptime = require('./setUptime.js');
 var getUptime = require('./getUptime.js');
 var setRestartTime = require('./setRestartTime.js');
 var getRestartTime = require('./getRestartTime.js');
+var playerDB = require('./playerDB.js');
+var getPlayerByName = require('./getPlayerByName.js');
 
 module.exports = {
   setPlayers,
@@ -11,5 +13,7 @@ module.exports = {
   setUptime,
   getUptime,
   setRestartTime,
-  getRestartTime
+  getRestartTime,
+  playerDB,
+  getPlayerByName
 };

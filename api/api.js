@@ -4,7 +4,7 @@ const cors = require('cors');
 var app = express();
 app.use(cors());
 
-var { basic } = require('./modules');
+var { basic, player } = require('./modules');
 
 var API = function() {
   app.get('/', function (req, res) {
@@ -15,8 +15,8 @@ var API = function() {
           desc: 'Basic information like active player count.'
         },
         {
-          name: 'banlist',
-          desc: 'List of all banned players.'
+          name: 'player/:playername',
+          desc: 'Get public data on a listed player (case sensitive).'
         }
       ]
     });
@@ -25,7 +25,11 @@ var API = function() {
   app.get('/basic', function(req, res){
     basic(req, res);
   });
-
+  
+  app.get('/player/:player', function(req, res){
+    player(req, res);
+  });
+  
   var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;
