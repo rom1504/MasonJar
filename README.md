@@ -24,8 +24,3 @@ and failure to dispatch commands is entirely possible.
 commands should be prefixed by # and use JavaScript functional syntax. example:
 `#starter()`. Enjoy!
 
-# Planned Features:
-
-### #point("PlayerName")
-When someone helps you out, give them a point, one point can be given per day,
-you cannot give yourself points. Points may be use to purchase packs in game.
