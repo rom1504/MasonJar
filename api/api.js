@@ -20,7 +20,7 @@ var API = function() {
         },
         {
           name: 'players/:limit',
-          desc: 'Get all players sorted by time online.'
+          desc: 'Get all players sorted by time online time.'
         },
         
       ]

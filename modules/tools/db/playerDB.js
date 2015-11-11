@@ -11,11 +11,14 @@ var Player = new Schema({
   onlinePoints: Number,
   points: Number,
   afk: Boolean,
-  onlineStamp: Number
-});
+  onlineStamp: Number,
+  UUID: String
+}); 
 
 mongoose.model('Player', Player);
 var Player = mongoose.model('Player');
+
+var request = require('request');
 
 const playerDB = function(action, data) {
   switch(action) {
@@ -25,7 +28,7 @@ const playerDB = function(action, data) {
       
       
       players.map(function(p) {
-        var query = Player.findOne({ 'username': p.name });
+        var query = Player.findOne({ 'username': p.name.replace(' ', '') });
         
         query.findOne(function (err, player) {
           if (err) return handleError(err);
@@ -43,23 +46,27 @@ const playerDB = function(action, data) {
               }
             });
           }else {
-            var newPlayer = new Player({
-              updatedAt: Date.now(),
-              username: p.name,
-              afk: p.afk,
-              onlinePoints: 0,
-              points: 0,
-              onlineStamp: Date.now()
-            });
-            newPlayer.save(function(err){
-              if(err) {
-                console.log(err);
-              }
+            request.post(`https://us.mc-api.net/v3/uuid/${p.name}`, {json: true}, function(err, res, body) {
+              var newPlayer = new Player({
+                updatedAt: Date.now(),
+                username: p.name,
+                afk: p.afk,
+                onlinePoints: 0,
+                points: 0,
+                onlineStamp: Date.now(),
+                UUID: body.full_uuid,
+                plainUUID: body.uuid
+              });
+              newPlayer.save(function(err){
+                if(err) {
+                  console.log(err);
+                }
+              });
             });
           }
-        });
-        
       });
+      
+    });
       break;
     
     default:

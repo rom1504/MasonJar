@@ -20,6 +20,7 @@
     "cors": "^2.7.1",
     "express": "^4.13.3",
     "minecraft-wrap": "git://github.com/wski/node-minecraft-wrap.git#master",
-    "mongoose": "^4.2.4"
+    "mongoose": "^4.2.4",
+    "request": "^2.65.0"
   }
 }

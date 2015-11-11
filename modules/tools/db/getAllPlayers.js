@@ -12,7 +12,6 @@ const getAllPlayers = function(callback, limit, by) {
   query.find(function (err, players) {
     if (err) return handleError(err);
     if(players) {
-      console.log(players);
       callback(players);
     }else {
       callback({});

@@ -14,7 +14,9 @@ const getPlayersByName = function(player, callback) {
         onlinePoints: player.onlinePoints,
         points: player.points,
         afk: player.afk,
-        lastSeen: player.onlineStamp
+        lastSeen: player.onlineStamp,
+        UUID: player.UUID,
+        plainUUID: player.plainUUID
       });
     }else {
       callback({
@@ -23,7 +25,8 @@ const getPlayersByName = function(player, callback) {
         onlinePoints: 0,
         points: 0,
         afk: false,
-        lastSeen: 'never'
+        lastSeen: 'never',
+        UUID: 'unknown'
       });
     }
   });
