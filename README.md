@@ -14,13 +14,9 @@ sh start.sh
 
 The server will be running at `localhost:25565`. connect by going to Multiplayer > Add Server, using `localhost` as the server address.
 
-# Notice:
+## Notice:
 This server is under active development. World resets, failed delivery of items,
 and failure to dispatch commands is entirely possible.
 
-# Commands:
-
 ## Usage:
-commands should be prefixed by # and use JavaScript functional syntax. example:
-`#starter()`. Enjoy!
-
+For usage instructions and server details please see `docs/`.
