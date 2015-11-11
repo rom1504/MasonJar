@@ -2,6 +2,9 @@
 
 ## Routes
 
+### Notice
+Documentation is updated infrequently and some examples may be out of date. More (or less) information may be available.
+
 #### /
 Get a list of all top level routes available.
 
@@ -38,7 +41,7 @@ Example:
 }
 ```
 
-#### /player/:playername
+### /player/:playername
 Get public player information stored on the server.
 
 Example:
@@ -54,7 +57,7 @@ Example:
 }
 ```
 
-#### /players/:limit
+### /players/:limit
 Get a list of all players by limit containing information stored on the server.
 
 Example:
