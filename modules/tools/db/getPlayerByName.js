@@ -11,7 +11,7 @@ const getPlayersByName = function(player, callback) {
 
   query.find(function (err, player) {
     if (err) return handleError(err);
-    if(player) {
+    if(player[0]) {
       var player = player[0];
       callback({
         updatedAt: player.updatedAt,
