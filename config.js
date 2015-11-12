@@ -8,7 +8,7 @@ module.exports = {
   USING_ESSENTIALS: true,
   USING_FACTIONS: true,
   RESTART_TIMER: 86400000,
-  MAIN_CRON: '* 5 * * * *',
+  MAIN_CRON: '10 * * * * *',
   CACHE_TIMER: 1000,
   ONLINE_POINT_MINS: 1,
   LOGFILE: '../../MasonJar.log',

@@ -17,18 +17,6 @@ module.exports = function() {
   });
   mongoose.model('Player', Player);
 
-  var Faction = new Schema({
-    updatedAt: { type: Date, default: Date.now() },
-    name: String,
-    id: { type: String, default: 'Null' },
-    description: { type: String, default: 'Null' },
-    power: Number,
-    members: Array,
-    data: { type: Object, default: {} }
-  }, { strict: false });
-
-  mongoose.model('Faction', Faction);
-
   var TPSS = new Schema({
     updatedAt: { type: Date, default: Date.now() },
     oneMin: String,
@@ -61,4 +49,15 @@ module.exports = function() {
     formattedRestartCoutdown: String
   });
   mongoose.model('RestartTimer', RestartTimer);
+
+  var Faction = new Schema({
+    updatedAt: { type: Date, default: Date.now() },
+    name: String,
+    factionId: { type: String, default: 'Null' },
+    description: { type: String, default: 'Null' },
+    power: Number,
+    members: Array
+  }, { strict: false });
+
+  mongoose.model('Faction', Faction);
 };

@@ -4,7 +4,7 @@ const cors = require('cors');
 var app = express();
 app.use(cors());
 
-var { basic, player, players } = require('./modules');
+var { basic, player, players, factions } = require('./modules');
 
 var API = function() {
   app.get('/', function (req, res) {
@@ -22,6 +22,10 @@ var API = function() {
           name: 'players/:limit',
           desc: 'Get all players sorted by time online time.'
         },
+        {
+          name: 'factions/:limit',
+          desc: 'Get a list of all factions, sorted by power'
+        }
 
       ]
     });
@@ -35,9 +39,14 @@ var API = function() {
     player(req, res);
   });
 
-   app.get('/players/:limit', function(req, res){
+  app.get('/players/:limit', function(req, res){
     players(req, res);
   });
+
+  app.get('/factions/:limit', function(req, res){
+    factions(req, res);
+  });
+
 
   var server = app.listen(3000, function () {
     var host = server.address().address;

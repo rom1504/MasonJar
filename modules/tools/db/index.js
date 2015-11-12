@@ -10,6 +10,7 @@ var getAllPlayers = require('./getAllPlayers.js');
 var setTPS = require('./setTPS.js');
 var getTPS = require('./getTPS.js');
 var assignMetadata = require('./assignMetadata.js');
+var getAllFactions = require('./getAllFactions.js');
 
 module.exports = {
   setPlayers,
@@ -23,5 +24,6 @@ module.exports = {
   getAllPlayers,
   setTPS,
   getTPS,
+  getAllFactions,
   assignMetadata
 };
