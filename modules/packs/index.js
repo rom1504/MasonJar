@@ -1,4 +1,4 @@
-var starter = require('starter.pack.js');
+var starter = require('./starter.js');
 
 module.exports = {
   starter

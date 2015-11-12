@@ -22,7 +22,7 @@ var API = function() {
           name: 'players/:limit',
           desc: 'Get all players sorted by time online time.'
         },
-        
+
       ]
     });
   });
@@ -30,15 +30,15 @@ var API = function() {
   app.get('/basic', function(req, res){
     basic(req, res);
   });
-  
+
   app.get('/player/:player', function(req, res){
     player(req, res);
   });
-  
+
    app.get('/players/:limit', function(req, res){
     players(req, res);
   });
-  
+
   var server = app.listen(3000, function () {
     var host = server.address().address;
     var port = server.address().port;

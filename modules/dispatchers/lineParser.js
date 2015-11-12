@@ -2,7 +2,7 @@ var {
   SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS
 } = require('../../config');
 
-var { setPlayers, playerDB } = require('../tools/db');
+var { setPlayers, playerDB, setTPS } = require('../tools/db');
 var CONNECTED_PLAYERS = {};
 
 module.exports = function(mc, line, callback) {
@@ -40,6 +40,26 @@ module.exports = function(mc, line, callback) {
       setPlayers(CONNECTED_PLAYERS);
       playerDB('online', CONNECTED_PLAYERS);
     }
+  }
+  if(USING_ESSENTIALS && line.match(/\[.*]: TPS from last 1m, 5m, 15m:/)) {
+    var tps = line.split(']:')[1].split(':')[1].split(',');
+    var TPS = {};
+    tps.map(function(tpsi, i) {
+      switch(i){
+        case 0:
+          TPS.oneMin = tpsi.replace(' ', '');
+          break;
+        case 1:
+          TPS.fiveMin = tpsi.replace(' ', '');
+          break;
+        case 2:
+          TPS.fifteenMin = tpsi.replace(' ', '');
+          break;
+        default:
+          break;
+      }
+    });
+    setTPS(TPS);
   }
   callback(CONNECTED_PLAYERS);
 };

@@ -1,16 +1,19 @@
+const mongoInit = require('./modules/init/mongoInit.js'); mongoInit();
 const API = require('./api/api.js'); API();
+
+const CronJob = require('cron').CronJob;
 
 const wrap = require('minecraft-wrap');
 const path = require('path');
 
-const mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/masonjar');
-
 var {
-  SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS, CACHE_TIMER
+  SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS, CACHE_TIMER, MAIN_CRON,
+  USING_FACTIONS
 } = require('./config');
+
 var CONNECTED_PLAYERS = {count: 0};
 
+var Crons = require('./modules/crons');
 var { mainLoop, lineParser } = require('./modules/dispatchers');
 
 const mc = new wrap.Wrap(
@@ -27,6 +30,12 @@ var { cleanup, banManager, spigotParser, command } = require('./modules');
 
 var cmd = require('./modules/tools/cmd.js');
 cmd.init(mc);
+
+new CronJob(MAIN_CRON, function() {
+  if( USING_FACTIONS ) {
+    Crons.factions();
+  }
+}, null, true, 'America/New_York');
 
 cleanup(() => {
 

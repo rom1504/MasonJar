@@ -17,6 +17,8 @@ module.exports = function(mc) {
     timeTillRestart = RESTART_TIMER;
   }
   mc.writeServer('list\n');
+  mc.writeServer('tps\n');
+  
   uptime = now - startTime;
   setUptime(uptime);
 };

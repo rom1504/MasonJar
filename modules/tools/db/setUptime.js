@@ -1,14 +1,5 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var Uptime = new Schema({
-  updatedAt: { type: Date, default: Date.now() },
-  uptimeBreakdown: Object,
-  formattedUptime: String,
-  uptime: Number
-});
-
-mongoose.model('Uptime', Uptime);
 var Uptime = mongoose.model('Uptime');
 
 const setUptime = function(serverUptime) {

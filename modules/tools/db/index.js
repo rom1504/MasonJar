@@ -7,6 +7,9 @@ var getRestartTime = require('./getRestartTime.js');
 var playerDB = require('./playerDB.js');
 var getPlayerByName = require('./getPlayerByName.js');
 var getAllPlayers = require('./getAllPlayers.js');
+var setTPS = require('./setTPS.js');
+var getTPS = require('./getTPS.js');
+var assignMetadata = require('./assignMetadata.js');
 
 module.exports = {
   setPlayers,
@@ -17,5 +20,8 @@ module.exports = {
   getRestartTime,
   playerDB,
   getPlayerByName,
-  getAllPlayers
+  getAllPlayers,
+  setTPS,
+  getTPS,
+  assignMetadata
 };

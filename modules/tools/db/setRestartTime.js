@@ -1,11 +1,5 @@
 const mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var RestartTimer = new Schema({
-  updatedAt: { type: Date, default: Date.now() },
-  timeTillRestart: Number,
-  formattedRestartCoutdown: String
-});
 var getDuration = function(millis){
     var dur = {};
     var units = [
@@ -27,7 +21,7 @@ var getDuration = function(millis){
     };
     return dur;
 };
-mongoose.model('RestartTimer', RestartTimer);
+
 var RestartTimer = mongoose.model('RestartTimer');
 
 const setRestartTime = function(timeTillRestart) {

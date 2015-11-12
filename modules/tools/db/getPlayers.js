@@ -4,8 +4,11 @@ const mongoose = require('mongoose');
 var PlayerCount = mongoose.model('PlayerCount');
 
 const getPlayers = function(callback) {
-  var query = PlayerCount.find().sort({'updatedAt': 'desc'});
-  query.findOne(function (err, players) {
+  var query = PlayerCount
+    .find()
+    .sort({'updatedAt': 'desc'});
+
+  query.find(function (err, players) {
     if (err) return handleError(err);
     if(players) {
       callback({

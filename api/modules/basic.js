@@ -1,15 +1,18 @@
 var {
-  getPlayers, getUptime, getRestartTime
+  getPlayers, getUptime, getRestartTime, getTPS
 } = require('../../modules/tools/db');
 
 const basic = function(req, res) {
   getRestartTime(function(restartTime) {
     getUptime(function(uptime) {
       getPlayers(function(players) {
-        res.json({
-          players,
-          uptime,
-          restartTime
+        getTPS(function(tps) {
+          res.json({
+            players,
+            uptime,
+            restartTime,
+            tps
+          });
         });
       });
     });

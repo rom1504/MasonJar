@@ -4,10 +4,15 @@ var Schema = mongoose.Schema;
 var Player = mongoose.model('Player');
 
 const getPlayersByName = function(player, callback) {
-  var query = Player.find({ 'username': player }).sort({'updatedAt': 'desc'});
-  query.findOne(function (err, player) {
+  var query = Player
+    .findOne({ 'username': player })
+    .where('__v').gt(0)
+    .sort({'updatedAt': 'desc'});
+
+  query.find(function (err, player) {
     if (err) return handleError(err);
     if(player) {
+      var player = player[0];
       callback({
         updatedAt: player.updatedAt,
         username: player.username,
@@ -16,7 +21,7 @@ const getPlayersByName = function(player, callback) {
         afk: player.afk,
         lastSeen: player.onlineStamp,
         UUID: player.UUID,
-        plainUUID: player.plainUUID
+        metadata: player.metadata
       });
     }else {
       callback({
