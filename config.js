@@ -9,7 +9,7 @@ module.exports = {
   USING_FACTIONS: true,
   RESTART_TIMER: 86400000,
   MAIN_CRON: '10 * * * * *',
-  CACHE_TIMER: 1000,
+  CACHE_TIMER: 5000,
   ONLINE_POINT_MINS: 1,
   LOGFILE: '../../MasonJar.log',
   SERVER_JAR: '/jars/spigot_server.jar',
