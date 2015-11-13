@@ -33,7 +33,7 @@ cmd.init(mc);
 
 new CronJob(MAIN_CRON, function() {
   if( USING_FACTIONS ) {
-    Crons.factions();
+    //Crons.factions();
   }
 }, null, true, 'America/New_York');
 
