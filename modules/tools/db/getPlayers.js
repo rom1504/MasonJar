@@ -11,6 +11,7 @@ const getPlayers = function(callback) {
   query.find(function (err, players) {
     if (err) return handleError(err);
     if(players) {
+      players = players[0];
       callback({
         count: players.count,
         players: players.names,

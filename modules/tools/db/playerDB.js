@@ -35,11 +35,34 @@ const playerDB = function(action, data) {
                 player.onlineStamp = Date.now();
               }
             }
-            player.save(function(err){
-              if (err) {
-                console.log(err);
-              }
-            });
+            if( USING_FACTIONS ) {
+              jsonfile.readFile(`${FACTIONS_PLAYERS}/${player.UUID}.json`, function(err, obj) {
+                if(obj.factionId) {
+                  jsonfile.readFile(`${FACTIONS_FACTIONS}/${obj.factionId}.json`, function(err, faction_obj) {
+                    player.metadata = Object.assign({}, player.metadata, {
+                      factions: {
+                        power: obj.power,
+                        role: obj.role,
+                        factionId: obj.factionId,
+                        name: faction_obj.name,
+                        description: faction_obj.description
+                      }
+                    });
+                    player.save(function(err){
+                      if (err) {
+                        console.log(err);
+                      }
+                    });
+                  });
+                }
+              });
+            }else{
+              player.save(function(err){
+                if (err) {
+                  console.log(err);
+                }
+              });
+            }
           }else {
             request.post(`https://us.mc-api.net/v3/uuid/${p.name}`, {json: true}, function(err, res, body) {
               var newPlayer = new Player({
