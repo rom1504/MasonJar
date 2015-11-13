@@ -22,9 +22,8 @@ const factions = function() {
 
               var UUID = stat.name.split('.')[0];
               var oldFactionData = FACTIONS[obj.factionId];
-              console.log(UUID);
-              console.log(oldFactionData);
-              FACTIONS[obj.factionId] = {
+
+              var factionsObjectCreated = {
                 power: (oldFactionData && oldFactionData.power) ?
                   oldFactionData.power += obj.power : obj.power,
                 id: obj.factionId,
@@ -32,44 +31,46 @@ const factions = function() {
                 name: faction_obj.name,
                 description: faction_obj.description
               };
+              FACTIONS[obj.factionId] = factionsObjectCreated;
             });
           }
         });
       }
       next();
-  });
+    });
 
   walker.on('end', function() {
-    for (FACTION in FACTIONS) {
-      var f = FACTIONS[FACTION];
-      var query = Faction
-        .find({'factionId': f.id})
-        .sort({'updatedAt': 'desc'});
+    // HACK: need to find a way to turn jsonfile into a promise or callback. 
+    setTimeout(function() {
+      for (FACTION in FACTIONS) {
+        var f = FACTIONS[FACTION];
+        var query = Faction
+          .find({'factionId': f.id})
+          .sort({'updatedAt': 'desc'});
 
-      query.findOne(function (err, fact) {
-        if (err) return handleError(err);
-        if(fact) {
-          console.log(fact);
-          fact.power = f.power;
-          fact.name = f.name;
-          fact.description = f.description;
-          fact.save(function(err){
-            if(err) console.log(err);
-          });
-        }else {
-          var faction = new Faction({
-            power: f.power,
-            factionId: f.id,
-            name: f.name,
-            description: f.description
-          });
-          faction.save(function(err){
-            if(err) console.log(err);
-          });
-        }
-      });
-    }
-
+        query.findOne(function (err, fact) {
+          if (err) return handleError(err);
+          if(fact) {
+            fact.power = f.power;
+            fact.name = f.name;
+            fact.description = f.description;
+            fact.save(function(err){
+              if(err) console.log(err);
+            });
+          }else {
+            var faction = new Faction({
+              power: f.power,
+              factionId: f.id,
+              name: f.name,
+              description: f.description
+            });
+            faction.save(function(err){
+              if(err) console.log(err);
+            });
+          }
+        });
+      }
+    }, 1000);
   });
 };
 module.exports = factions;
