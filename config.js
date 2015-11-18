@@ -11,7 +11,13 @@ module.exports = {
   MAIN_CRON: '10 * * * * *',
   CACHE_TIMER: 5000,
   ONLINE_POINT_MINS: 1,
+  MINECRAFT: {
+    motd: '8BitBlocks 2.0 Factions Server'
+  },
   LOGFILE: '../../MasonJar.log',
   SERVER_JAR: '/jars/spigot_server.jar',
-  DEFAULT_OP: 'That_8Bit_Trip'
+  DEFAULT_OPS: [
+    'That_8Bit_Trip',
+    'cstalker'
+  ]
 };

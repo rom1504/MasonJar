@@ -18,7 +18,7 @@ const playerDB = function(action, data) {
   switch(action) {
     case 'online':
       var players = (data.names) ? data.names : [];
-
+      console.log(data);
       players.map(function(p) {
         var p = p;
         p.name = p.name.replace(' ', '');
@@ -30,14 +30,13 @@ const playerDB = function(action, data) {
           if(player) {
             player.__v ++;
             if(Date.now() - player.onlineStamp >= ONLINE_POINT_MINS*60*1000) {
-              if(!p.afk) {
-                player.onlinePoints++;
-                player.onlineStamp = Date.now();
-              }
+              console.log('Adding points to player', player.username);
+              player.onlinePoints++;
+              player.onlineStamp = Date.now();
             }
             if( USING_FACTIONS ) {
               jsonfile.readFile(`${FACTIONS_PLAYERS}/${player.UUID}.json`, function(err, obj) {
-                if(obj.factionId) {
+                if(obj && obj.factionId) {
                   jsonfile.readFile(`${FACTIONS_FACTIONS}/${obj.factionId}.json`, function(err, faction_obj) {
                     player.metadata = Object.assign({}, player.metadata, {
                       factions: {

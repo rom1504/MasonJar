@@ -36,6 +36,7 @@ module.exports = {
     mc.writeServer(`say ${msg}\n`);
   },
   whisper: function(player, msg) {
+    console.log(player);
     if(USING_ESSENTIALS){
       mc.writeServer(`whisper ${player} ${msg}\n`);
     }else {

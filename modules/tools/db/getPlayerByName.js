@@ -6,7 +6,7 @@ var Player = mongoose.model('Player');
 const getPlayersByName = function(player, callback) {
   var query = Player
     .findOne({ 'username': player })
-    .where('__v').gt(0)
+    .where('__v').gt(1)
     .sort({'updatedAt': 'desc'});
 
   query.find(function (err, player) {

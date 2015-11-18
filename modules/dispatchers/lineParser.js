@@ -16,29 +16,37 @@ module.exports = function(mc, line, callback) {
   }
 
   if( USING_ESSENTIALS ) {
-    if( line.match(/\[.* INFO]: default:/) ){
-      var players = line.replace(/\[.* INFO]: default:/, '').replace(' ', '').split(',');
+    if( line.match(/\[.* INFO]: Players:/) ){
+    	var players = line
+        	.replace(/\[.* INFO]: Players:/, '')
+        	.replace(' ', '')
+        	.split(',');
+        	
       for (player in players) {
-        var now = Date.now();
-        if(players[player].match(/\[.*].*/)) {
-          players[player] = {
-            name: players[player].split(']')[1],
-            afk: true
-          };
-        }else{
-          players[player] = {
-            name: players[player],
-            afk: false
-          };
-        }
+          players[player] = players[player]
+              .replace(' ', '')
+          	.replace(/.*: /, '');
+          
+  		if(players[player].match(/\[.*].*/)) {
+            players[player] = {
+              name: players[player].split(']')[1],
+              afk: true
+            };
+          }else{
+            players[player] = {
+              name: players[player],
+              afk: false
+            };
+          }
+          
       }
       CONNECTED_PLAYERS.names = players;
       CONNECTED_PLAYERS.count = players.length;
-      setPlayers(CONNECTED_PLAYERS);
       playerDB('online', CONNECTED_PLAYERS);
+      setPlayers(CONNECTED_PLAYERS);
     }else{
-      setPlayers(CONNECTED_PLAYERS);
       playerDB('online', CONNECTED_PLAYERS);
+      setPlayers(CONNECTED_PLAYERS);
     }
   }
   if(USING_ESSENTIALS && line.match(/\[.*]: TPS from last 1m, 5m, 15m:/)) {

@@ -7,8 +7,8 @@ const wrap = require('minecraft-wrap');
 const path = require('path');
 
 var {
-  SERVER_JAR, MAX_PLAYERS, DEFAULT_OP, USING_ESSENTIALS, CACHE_TIMER, MAIN_CRON,
-  USING_FACTIONS
+  SERVER_JAR, MAX_PLAYERS, DEFAULT_OPS, USING_ESSENTIALS, CACHE_TIMER, MAIN_CRON,
+  USING_FACTIONS, MINECRAFT
 } = require('./config');
 
 var CONNECTED_PLAYERS = {count: 0};
@@ -40,8 +40,9 @@ new CronJob(MAIN_CRON, function() {
 cleanup(() => {
 
   mc.startServer({
-    motd: '8BitBlocks - MasonJar',
-    'max-players': MAX_PLAYERS
+    motd: MINECRAFT.motd,
+    'max-players': MAX_PLAYERS,
+    'enable-command-block': true
   }, (error) => {
 
     if(error) {
@@ -54,7 +55,9 @@ cleanup(() => {
       const BannedPlayers = require('./server/banned-players.json') || [];
 
       setTimeout(function(){
-        mc.writeServer(`op ${DEFAULT_OP}\n`);
+        DEFAULT_OPS.map(function(player){
+          mc.writeServer(`op ${player}\n`);
+        });
 
         mainLoop(mc);
         setInterval(function() {

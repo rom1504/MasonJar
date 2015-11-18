@@ -6,6 +6,8 @@ app.use(cors());
 
 var { basic, player, players, factions } = require('./modules');
 
+const passport = require('passport');
+
 var API = function() {
   app.get('/', function (req, res) {
     res.json({
@@ -45,6 +47,16 @@ var API = function() {
 
   app.get('/factions/:limit', function(req, res){
     factions(req, res);
+  });
+  
+  app.post('/login',
+  passport.authenticate('local'),
+  function(req, res) {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    
+    // I have no idea if this works
+    res.redirect('/users/' + req.user.username);
   });
 
 
