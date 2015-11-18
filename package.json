@@ -21,7 +21,7 @@
     "cron": "^1.0.9",
     "express": "^4.13.3",
     "jsonfile": "^2.2.3",
-    "minecraft-wrap": "git://github.com/wski/node-minecraft-wrap.git#master",
+    "minecraft-wrap": "^0.7.0",
     "mongoose": "^4.2.4",
     "passport": "^0.3.2",
     "request": "^2.65.0",
