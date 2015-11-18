@@ -18,7 +18,7 @@ const playerDB = function(action, data) {
   switch(action) {
     case 'online':
       var players = (data.names) ? data.names : [];
-      console.log(data);
+
       players.map(function(p) {
         var p = p;
         p.name = p.name.replace(' ', '');
