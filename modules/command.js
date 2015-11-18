@@ -32,7 +32,6 @@ const command = function(mc, payload, callback, options) {
 
     } catch(err){
       cmd.whisper(
-        mc,
         payload.player,
         `Invalid command syntax.`
       );
@@ -42,7 +41,6 @@ const command = function(mc, payload, callback, options) {
 
   }else {
     cmd.whisper(
-      mc,
       payload.player,
       `Unknown command.`
     );

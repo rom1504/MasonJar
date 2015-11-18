@@ -30,7 +30,6 @@ const playerDB = function(action, data) {
           if(player) {
             player.__v ++;
             if(Date.now() - player.onlineStamp >= ONLINE_POINT_MINS*60*1000) {
-              console.log('Adding points to player', player.username);
               player.onlinePoints++;
               player.onlineStamp = Date.now();
             }

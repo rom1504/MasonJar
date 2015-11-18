@@ -18,5 +18,9 @@ The server will be running at `localhost:25565`. connect by going to Multiplayer
 This server is under active development. World resets, failed delivery of items,
 and failure to dispatch commands is entirely possible.
 
+## Parser Note:
+I reccommend that you look over the payload the parser returns and replicate th output with whatever lines you can gather from your server.
+The parser will likely need to be modified for different versions of non-vanilla minecraft.
+
 ## Usage:
 For usage instructions and server details please see `docs/`.

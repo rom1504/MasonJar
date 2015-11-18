@@ -18,42 +18,31 @@ const spigotParser = function(line, callback) {
   })();
 
   var command = (function(){
-    var re = new RegExp(/\[.* INFO]: .* issued mycmd command .* \/api/g);
+    var re = new RegExp(/\> \#.*\(.*\)/g);
 
     if(re.test(line)) {
-	  
-      var player = line.split(':')[3].split(' ')[1];
-      
-      var command = line
-      	.split('/api')[1]
-      	.split(')')[0]
-      	.substr(
-            1, 
-            line
-  				.split('/api')[1]
-      			.split(')')[0].length -1);
-      
-      var args = command.split('(')[1];
-       
-      command = command.split('(')[0];
-        
-      if(!args){
-        args = 'noargs';
-      }
-  	  return {
-        player,
-        command,
-        args
-      };
+
+      var dispatchedCommand = line
+        .match(/\> \#.*\(.*\)/g)[0]
+        .substr(2, line.match(/\> \#.*\(.*\)/g)[0].length);
+
+      var command = dispatchedCommand
+        .split('(')[0]
+        .replace('#', '');
+
+      var args = dispatchedCommand
+        .split('(')[1]
+        .split(')')[0]
+        .replace("'", "")
+        .replace('"', '');
+
+      return {command, args};
+
     }else {
       return false;
     }
 
   })();
-
-  if(command && command.player){
-    player = command.player;
-  }
 
   var message = (function() {
     if( !command && player ) {
